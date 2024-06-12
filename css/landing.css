@@ -25,11 +25,11 @@ h1 {
 h1 > img {
     display: inline;
     height: 2em;
-    margin-right: 12px;
+    margin-right: 16px;
     border-radius: 50%;
 }
 
-/* Menu */
+/* "Menu" (social media list) */
 .menu {
     list-style: none;
 }
@@ -51,7 +51,8 @@ h1 > img {
     transition: background-color 0.2s ease-out;
 }
 
-.menu a:hover {
+.menu a:hover,
+.menu a:active {
     background: var(--control);
 }
 
@@ -107,7 +108,7 @@ h1 > img {
     #right {
         border-left: none;
         padding-left: 0;
-        margin-top: 16px;
+        margin-top: 8px;
         padding-top: 16px;
         border-top: 1px solid var(--border);
     }
