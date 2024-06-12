@@ -105,10 +105,14 @@ h1 > img {
         text-align: center;
     }
 
+    #left,
+    #right {
+        padding: 0;
+    }
+
     #right {
         border-left: none;
-        padding-left: 0;
-        margin-top: 8px;
+        margin-top: 16px;
         padding-top: 16px;
         border-top: 1px solid var(--border);
     }
