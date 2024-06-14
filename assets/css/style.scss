@@ -8,10 +8,6 @@
     box-sizing: border-box;
 }
 
-// Source: https://marauderxtreme.github.io/pygmentize-stylesheets/
-@import "highlight";
-@import "one-dark";
-
 $g1: hsl(225, 5%, 9%);
 $g2: hsl(225, 5%, 14%);
 $g3: hsl(225, 4%, 32%);
@@ -32,6 +28,27 @@ $r3: hsl(359, 100%, 58%);
     }
 }
 
+@mixin hover {
+    @media (hover: hover) {
+        &:hover {
+            @content;
+        }
+    }
+
+    &:active {
+        @content;
+    }
+}
+
+@font-face {
+    font-family: "Cascadia Code";
+    src: url("{{ '/assets/font/CascadiaCode.woff2' | relative_path }}");
+}
+
+// Source: https://marauderxtreme.github.io/pygmentize-stylesheets/
+@import "highlight";
+@import "one-dark";
+
 :root {
     @include one-dark-pygment;
 }
@@ -50,6 +67,12 @@ body {
 
 :focus-visible {
     outline: 1px solid $r3;
+}
+
+code {
+    font-family: "Cascadia Code", monospace;
+    font-variant-ligatures: none;
+    font-size: 0.8em;
 }
 
 .site-header {
@@ -80,8 +103,7 @@ body {
 
         transition: background-color 0.2s ease;
 
-        &:hover,
-        &:focus-visible {
+        @include hover {
             text-decoration: none;
             background: #fff1;
         }
@@ -121,7 +143,8 @@ body {
     }
 
     p:not(:last-child),
-    li:last-child blockquote,
+    li:last-child,
+    blockquote,
     pre.highlight,
     figure.highlight,
     h1,
@@ -202,18 +225,13 @@ body {
     color: $r2;
     text-decoration: none;
 
-    &:hover,
-    &:focus-visible {
+    @include hover {
         text-decoration: underline;
     }
 }
 
 .post-list {
     list-style: none;
-
-    .post-meta {
-        padding-bottom: 0.5rem;
-    }
 
     li {
         margin-left: 0;
@@ -223,6 +241,14 @@ body {
         &:not(:last-child) {
             margin-bottom: 1rem;
         }
+    }
+
+    .post-meta {
+        padding-bottom: 0.5rem;
+    }
+
+    .draft {
+        opacity: 0.7;
     }
 }
 
@@ -235,6 +261,7 @@ body {
     font-size: 0.75rem;
 
     p code {
+        font-size: 1em;
         padding: 0;
         background: transparent;
         border: none;
@@ -297,7 +324,7 @@ body {
         align-items: center;
         transition: background-color 0.2s ease;
 
-        &:hover {
+        @include hover {
             background-color: #fff1;
             text-decoration: none;
         }

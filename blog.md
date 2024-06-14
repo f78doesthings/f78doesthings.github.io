@@ -7,4 +7,6 @@ header_title: Blog
 social_title: Blog
 ---
 
-I'm not using this right now, but perhaps I will in the future...
+There are no posts right now. _Perhaps I'll make use of this in the future..._
+
+[Go back home]({{ "/" | relative_url }})

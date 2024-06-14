@@ -3,8 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         {%- seo -%}
+        {%- feed_meta -%}
+        <meta name="theme-color" content="#dd1619">
         <link rel="shortcut icon" href="{{ "/assets/img/logo.png" | relative_url }}">
+
         <link href="https://fonts.googleapis.com" rel="preconnect">
         <link
             crossorigin
@@ -18,7 +22,6 @@
             referrerpolicy="no-referrer"
             rel="stylesheet">
         <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-        {%- feed_meta -%}
     </head>
     <body>
         {{ content }}

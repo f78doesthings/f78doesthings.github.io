@@ -21,7 +21,12 @@ show_subscribe: true
     {%- endif -%}
     <ul class="post-list">
         {%- for post in posts -%}
-            <li>
+            {%- assign class = "" -%}
+            {%- if post.path contains "_drafts" -%}
+                {%- assign class = "draft" -%}
+            {%- endif -%}
+
+            <li class="{{ class }}">
                 <h3>
                     <a class="post-link" href="{{ post.url | relative_url }}">
                         {{ post.title | escape }}
