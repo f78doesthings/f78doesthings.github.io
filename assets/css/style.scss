@@ -1,0 +1,311 @@
+---
+---
+
+// DO NOT MOVE - A ruleset MUST be first to prevent VSCode from freaking out.
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Source: https://marauderxtreme.github.io/pygmentize-stylesheets/
+@import "highlight";
+@import "one-dark";
+
+$g1: hsl(225, 5%, 9%);
+$g2: hsl(225, 5%, 14%);
+$g3: hsl(225, 4%, 32%);
+$g4: hsl(225, 4%, 52%);
+$g5: hsl(30, 4%, 70%);
+$g6: hsl(30, 100%, 99%);
+$r1: hsl(359, 83%, 38%);
+$r2: hsl(359, 83%, 48%);
+$r3: hsl(359, 100%, 58%);
+
+@mixin gradient-icon($classes, $image, $type: "brands") {
+    @each $class in $classes {
+        .fa-#{$type}.fa-#{$class}::before {
+            color: transparent;
+            background-clip: text;
+            background-image: $image;
+        }
+    }
+}
+
+:root {
+    @include one-dark-pygment;
+}
+
+body {
+    background: $g1;
+    color: $g6;
+    font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+        "Helvetica Neue", sans-serif;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+:focus-visible {
+    outline: 1px solid $r3;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    width: 100vw;
+    height: 48px;
+    background: transparentize($color: $g1, $amount: 0.2);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 0 10px $g1;
+
+    .wrapper {
+        margin: auto;
+        max-width: 840px;
+        display: flex;
+        align-items: center;
+        height: 100%;
+    }
+
+    a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 20px;
+        color: $g5;
+
+        transition: background-color 0.2s ease;
+
+        &:hover,
+        &:focus-visible {
+            text-decoration: none;
+            background: #fff1;
+        }
+    }
+
+    .site-title {
+        color: $g6;
+        font-weight: 900;
+        font-size: 1.4rem;
+
+        display: flex;
+        align-items: center;
+
+        .site-logo {
+            height: 32px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+    }
+
+    .site-nav {
+        flex-grow: 1;
+        height: 100%;
+        display: flex;
+        justify-content: right;
+    }
+}
+
+.page-content {
+    flex-grow: 1;
+    padding: 10px 20px 20px 20px;
+    line-height: 1.375;
+
+    .wrapper {
+        max-width: 800px;
+        margin: auto;
+    }
+
+    p:not(:last-child),
+    li:last-child blockquote,
+    pre.highlight,
+    figure.highlight,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    .post-header .post-meta {
+        margin-bottom: 1rem;
+    }
+
+    li {
+        margin-left: 1rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-weight: 800;
+    }
+
+    h1 {
+        font-size: 2.25rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.45rem;
+    }
+
+    h4 {
+        font-size: 1.25rem;
+    }
+
+    h5 {
+        font-size: 1.15rem;
+    }
+
+    h6 {
+        font-size: 1.05rem;
+    }
+
+    blockquote {
+        border-left: 4px solid $g3;
+        padding: 0.375rem 0.75rem;
+    }
+
+    div.highlight {
+        background: transparent;
+    }
+
+    p code,
+    pre.highlight,
+    figure.highlight {
+        padding: 3px 8px;
+
+        background: $g2;
+        border: 1px solid $g3;
+        border-radius: 12px;
+    }
+
+    pre.highlight,
+    figure.highlight {
+        padding: 8px 12px;
+    }
+}
+
+.page-content a,
+.feed-subscribe a,
+.footer-socials a {
+    color: $r2;
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: underline;
+    }
+}
+
+.post-list {
+    list-style: none;
+
+    .post-meta {
+        padding-bottom: 0.5rem;
+    }
+
+    li {
+        margin-left: 0;
+        display: flex;
+        flex-direction: column;
+
+        &:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+    }
+}
+
+.post-list h3,
+.post-header h1 {
+    margin-bottom: 0;
+}
+
+.post-excerpt {
+    font-size: 0.75rem;
+
+    p code {
+        padding: 0;
+        background: transparent;
+        border: none;
+    }
+}
+
+.post-meta,
+.page-modified {
+    color: $g5;
+}
+
+.site-footer {
+    background: $g1;
+    padding: 20px 20px 20px 20px;
+
+    .page-modified {
+        padding-bottom: 0;
+    }
+
+    .wrapper {
+        max-width: 800px;
+        margin: auto;
+    }
+}
+
+.socials {
+    @include gradient-icon("blog", radial-gradient($r3, $r1), "solid");
+    @include gradient-icon("discord", linear-gradient(#7289da, #5865f2));
+    @include gradient-icon(
+        ("x-twitter", "github"),
+        linear-gradient(#fff, #ccc)
+    );
+    @include gradient-icon(
+        "instagram",
+        linear-gradient(55.01deg, #ff7a00 12.35%, #ff0169 56.52%, #d300c5 100%)
+    );
+    @include gradient-icon("soundcloud", linear-gradient(#f70, #f30));
+    @include gradient-icon("circle-play", linear-gradient(#f00, #c00), "solid");
+    @include gradient-icon("youtube", linear-gradient(#f00, #c00));
+    @include gradient-icon("twitch", linear-gradient(#9147ff, #772ce8));
+    @include gradient-icon("cloud", linear-gradient(#34a853, #188038), "solid");
+}
+
+.menu {
+    max-width: 300px;
+
+    .menu-header {
+        margin-bottom: 0;
+    }
+
+    li {
+        list-style: none;
+        margin-left: 0;
+    }
+
+    a {
+        color: $g6;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+            background-color: #fff1;
+            text-decoration: none;
+        }
+    }
+
+    i {
+        font-size: 1.5rem;
+        width: 40px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,57 @@
+---
+layout: default
+---
+
+<header class="site-header">
+    <div class="wrapper">
+        <a
+            class="site-title"
+            rel="author"
+            href="{{ "/" | relative_url }}">
+            <img
+                class="site-logo"
+                src="{{ "/assets/img/logo.png" | relative_url }}"
+                alt="f78's avatar">
+            {{ site.title | escape }}
+        </a>
+
+        <nav class="site-nav">
+            {%- for my_page in site.pages -%}
+                {%- if my_page.header_title -%}
+                    <a class="page-link" href="{{ my_page.url | relative_url }}">
+                        {%- if my_page.icon -%}
+                            <i class="{{ my_page.icon |  escape }}">&nbsp;</i>
+                        {%- endif -%}
+                        {{ my_page.header_title | escape }}
+                    </a>
+                {%- endif -%}
+            {%- endfor -%}
+        </nav>
+    </div>
+</header>
+<main class="page-content">
+    <div class="wrapper">
+        {{ content }}
+    </div>
+</main>
+<footer class="site-footer">
+    <div class="wrapper">
+        {%- if layout.show_subscribe -%}
+            <p class="feed-subscribe">
+                <a href="{{ site.feed.path | default: "feed.xml" | absolute_url }}">
+                    <i class="fa-solid fa-rss"></i>
+                    Subscribe
+                </a>
+            </p>
+        {%- endif -%}
+        {%- if page.date_modified or page.date -%}
+            <p class="page-modified">
+                <i class="fa-regular fa-calendar"></i>
+                Last updated:
+                <time datetime="{{ page.date_modified | date_to_xmlschema }}" itemprop="dateModified">
+                    {{ page.date_modified | default: page.date | date: site.date_format }}
+                </time>
+            </p>
+        {%- endif -%}
+    </div>
+</footer>
