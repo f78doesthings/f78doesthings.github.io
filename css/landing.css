@@ -7,14 +7,21 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-#left,
-#right {
+main,
+nav {
     padding: 10px 16px;
 }
 
-#right {
+nav {
     grid-column: 2;
-    border-left: 1px solid var(--border);
+    border-left: 1px solid var(--g3);
+}
+
+footer {
+    margin-top: 12px;
+    grid-column: span 2;
+    text-align: center;
+    color: var(--g4);
 }
 
 h1 {
@@ -52,8 +59,8 @@ h1 > img {
 }
 
 .menu a:hover,
-.menu a:active {
-    background: var(--control);
+.menu a:focus-visible {
+    background: var(--g2);
 }
 
 /* Coloured icons */
@@ -105,16 +112,16 @@ h1 > img {
         text-align: center;
     }
 
-    #left,
-    #right {
+    main,
+    nav {
         padding: 0;
     }
 
-    #right {
+    nav {
         border-left: none;
         margin-top: 16px;
         padding-top: 16px;
-        border-top: 1px solid var(--border);
+        border-top: 1px solid var(--g3);
     }
 
     h1 {

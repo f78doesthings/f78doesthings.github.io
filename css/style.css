@@ -6,19 +6,20 @@
 }
 
 :root {
-    --background: #161719;
-    --control: #222326;
-    --border: #55575e;
-    --bright-border: #83858c;
-    --foreground: #fffcf9;
-    --dark-accent: #b21114;
-    --accent: #dd1619;
-    --bright-accent: #ff2b2e;
+    --g1: hsl(225, 5%, 9%);
+    --g2: hsl(225, 5%, 14%);
+    --g3: hsl(225, 4%, 32%);
+    --g4: hsl(225, 4%, 52%);
+    --g5: hsl(30, 4%, 70%);
+    --g6: hsl(30, 100%, 99%);
+    --r1: hsl(359, 83%, 38%);
+    --r2: hsl(359, 83%, 48%);
+    --r3: hsl(359, 100%, 58%);
 }
 
 body {
-    background: var(--background);
-    color: var(--foreground);
+    background: var(--g1);
+    color: var(--g6);
     font-family: "Montserrat", sans-serif;
     font-size: 16px;
     min-height: 100vh;
@@ -36,5 +37,9 @@ h2 {
 }
 
 a {
-    color: var(--accent);
+    color: var(--r2);
+}
+
+:focus-visible {
+    outline: 1px solid red;
 }
