@@ -6,4 +6,6 @@ vendor
 Gemfile.lock
 *.disabled
 _drafts
+.idea
 .vscode
+.env

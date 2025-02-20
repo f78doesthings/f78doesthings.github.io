@@ -1,5 +1,6 @@
 ---
 icon: fa-brands fa-youtube
-social_title: YouTube
+title: YouTube
+description: Watch (and possibly laugh at) some gaming videos of mine here.
 redirect_to: https://youtube.com/@f78.
 ---

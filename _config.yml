@@ -43,7 +43,12 @@ plugins:
 # their entries' file path in the `include:` list.
 #
 exclude:
+    - "*.bat"
+    - "*.sh"
     - "*.disabled"
+    - .idea/
+    - .vscode/
+    - .env
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

@@ -1,5 +1,6 @@
 ---
 icon: fa-brands fa-twitch
-social_title: Twitch
+title: Twitch
+description: If I ever decide to stream again, this is the place to be. Right now you won't find much here.
 redirect_to: https://twitch.tv/f78Live
 ---

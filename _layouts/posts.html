@@ -1,6 +1,7 @@
 ---
 layout: page
 show_subscribe: true
+stylesheet: posts
 ---
 
 {% if site.paginate %}
@@ -32,13 +33,21 @@ show_subscribe: true
                         {{ post.title | escape }}
                     </a>
                 </h3>
-                <span class="post-meta">
-                    <i class="fa-regular fa-calendar"></i>
-                    <time
-                        class="post-date"
-                        datetime="{{ page.date | date_to_xmlschema }}"
-                        itemprop="datePublished">{{ post.date | date: site.date_format }}</time>
-                </span>
+                <ul class="post-meta">
+                    {%- if post.path contains "_drafts" -%}
+                        <li>
+                            <i class="fa-solid fa-compass-drafting"></i>
+                            Draft
+                        </li>
+                    {%- endif -%}
+                    <li>
+                        <i class="fa-regular fa-calendar"></i>
+                        <time
+                            class="post-date"
+                            datetime="{{ page.date | date_to_xmlschema }}"
+                            itemprop="datePublished">{{ post.date | date: site.date_format }}</time>
+                    </li>
+                </ul>
                 {%- if site.show_excerpts -%}
                     <div class="post-excerpt">
                         {{ post.excerpt }}
