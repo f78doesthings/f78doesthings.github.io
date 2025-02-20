@@ -3,6 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 title: Home
+description: Hi! I'm f78, a 21-year-old guy from Belgium that is currently studying programming at college.
 layout: page
 date_modified: 2025/02/20
 ---
