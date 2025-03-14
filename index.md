@@ -3,14 +3,15 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 title: Home
-description: Hi! I'm f78, a 21-year-old guy from Belgium that is currently studying programming at college.
 layout: page
-date_modified: 2025/02/20
+date_modified: 2025/03/14
 ---
 
 # Home
 
-Hi! I'm f78, a 21-year-old guy from Belgium that is currently studying programming at college.
+Hi! I'm f78, a 21-year-old guy from Belgium who likes to play games like [Minecraft](https://www.minecraft.net/en-us){:target='_blank'}{:rel='noopener noreferrer'} and [Terraria](https://www.terraria.org/){:target='_blank'}{:rel='noopener noreferrer'}, code things and make music. I'm currently spending most of my time studying programming at college<span class="asterisk">*</span>.
+
+<p class="small"><span class="asterisk">*</span>: Translated from "hogeschool" in Dutch according to Google Translate. I'm not sure if this is accurate, as school names in English vs. Dutch confuse me...</p>
 
 <nav class="home-socials socials">
     <h2>My Socials</h2>

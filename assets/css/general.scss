@@ -265,6 +265,17 @@ p code {
         color: $secondary-light;
         margin-right: 12px;
     }
+
+    .asterisk {
+        color: $accent;
+        font-weight: 500;
+    }
+
+    .small {
+        font-style: italic;
+        font-size: 0.85rem;
+        color: $text-dark;
+    }
 }
 
 .page-content a,
@@ -324,6 +335,7 @@ p code {
     @include gradient-icon("youtube", linear-gradient(#f00, #c00));
     @include gradient-icon("twitch", linear-gradient(#9147ff, #772ce8));
     @include gradient-icon("cloud", linear-gradient(#34a853, #188038), "solid");
+    @include gradient-icon("bluesky", linear-gradient(#59b9ff, #0a7aff));
 }
 
 .menu {
