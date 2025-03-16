@@ -1,393 +1,605 @@
 ---
 ---
 
-// This file contains styles that apply to all pages.
+/*
+  This file contains styles that apply to all pages.
+*/
 
+@use "sass:color";
+@use "sass:math";
+@use "_globals" as *;
+
+//#region Pygments
 // Source: https://marauderxtreme.github.io/pygmentize-stylesheets/
-@import "pygmentize/highlight";
-@import "pygmentize/one-dark";
 
-@import "globals";
-
-*,
-*::before,
-*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: inherit;
-}
+@use "pygment/highlight";
+@use "pygment/one-dark";
 
 :root {
-    @include one-dark-pygment;
+  @include one-dark.one-dark-pygment;
 }
 
-@font-face {
-    font-family: "Cascadia Code";
-    src: url("{{ '/assets/font/CascadiaCode.woff2' | relative_path }}");
-}
-
-body {
-    background: $background;
-    color: $text;
-    font-family: Hind, sans-serif;
-
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-button,
-.site-header,
-.site-footer,
-.post-meta {
-    font-family: Montserrat, sans-serif;
-}
-
-pre.highlight,
-figure.highlight,
-p code {
-    font-family: "Cascadia Code", monospace;
-    //font-variant-ligatures: none;
-    font-size: 0.8em;
-    line-height: 1.375;
-}
-
-//#region Animated outline for focused elements
-// Based on https://www.bram.us/2021/01/29/animating-a-css-gradient-border/
-:focus-visible {
-    outline: none;
-    position: relative;
-
-    &::before {
-        --gradient-angle: 0deg;
-
-        content: "";
-        position: absolute;
-        left: -6px;
-        top: -4px;
-        width: calc(100% + 12px);
-        height: calc(100% + 8px);
-
-        border: 4px solid $accent;
-        border-image: linear-gradient(
-                var(--gradient-angle),
-                $accent-dark,
-                $accent-light
-            )
-            1;
-        border-radius: 12px;
-
-        @include animate(5s linear 0s infinite) {
-            to {
-                --gradient-angle: 360deg;
-            }
-        }
-    }
-}
-
-@property --gradient-angle {
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: false;
-}
 //#endregion
 
+@font-face {
+  font-family: "Cascadia Code";
+  //noinspection CssUnknownTarget
+  src: url("{{ '/assets/font/CascadiaCode.woff2' | relative_path }}");
+}
+
+//#region Body
+
+body {
+  display: grid;
+  justify-items: center;
+
+  grid-template-areas:
+        "header"
+        "main"
+        "footer";
+  grid-template-rows: auto 1fr auto;
+
+  min-height: 100svh;
+
+  background: $background;
+  color: $text;
+  font-family: $paragraph-font;
+  line-height: 1.375;
+}
+
+//#endregion
+
+//#region Header
+
 .site-header {
-    position: sticky;
-    top: 0;
-    width: 100vw;
-    height: 60px;
-    background: transparentize($color: $background, $amount: 0.25);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 0 12px $background;
-    z-index: 1;
+  grid-area: header;
 
-    .wrapper {
-        margin: auto;
-        max-width: 840px;
-        display: flex;
-        align-items: center;
-        height: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  position: sticky;
+  top: 0;
+  width: 100svw;
+  max-width: $page-width;
+  z-index: 100;
+
+  background: color.change($background, $alpha: 85%);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 16px $background;
+
+  a {
+    @include transparent-button;
+  }
+
+  .site-title {
+    display: flex;
+    align-items: center;
+    justify-self: left;
+
+    padding: 10px $page-padding;
+
+    color: $text-light;
+    font-size: 1.75rem;
+    font-weight: 900;
+    font-family: $heading-font;
+
+    img {
+      height: 48px;
+      border-radius: 50%;
+      margin-right: 12px;
     }
+  }
 
-    a {
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        height: 100%;
-        padding: 20px;
-        color: $text-dark;
-        font-weight: 500;
-        transition: background-color 0.2s ease;
+  .site-nav {
+    display: flex;
+    justify-self: right;
 
-        i {
-            font-size: 1.35em;
-        }
+    .page-link {
+      display: flex;
+      align-items: center;
 
-        @include hover {
-            text-decoration: none;
-            background: $transparent-button-hover;
-        }
+      padding: 0 $page-padding;
+      color: $text-dark;
     }
+  }
+}
 
-    .site-title {
-        color: $text-light;
-        font-weight: 900;
-        font-size: 1.7rem;
+//#endregion
 
-        display: flex;
-        align-items: center;
+//#region Main
 
-        .site-logo {
-            height: 40px;
-            margin-right: 10px;
-            border-radius: 50%;
-        }
-    }
+.material-symbols-rounded {
+  line-height: 1;
+  vertical-align: middle;
+  padding-bottom: 2px;
+}
 
-    .site-nav {
-        flex-grow: 1;
-        height: 100%;
-        display: flex;
-        justify-content: right;
-    }
+b,
+strong {
+  font-weight: 700;
+}
+
+i,
+em {
+  font-style: italic;
+}
+
+u {
+  text-decoration: underline;
+}
+
+sup {
+  vertical-align: super;
+  font-size: 0.85em;
+}
+
+sub {
+  vertical-align: sub;
+  font-size: 0.85em;
+}
+
+.page-content p a,
+.site-footer a,
+.post-link,
+.go-back {
+  color: $accent;
+  transition: color 0.2s ease;
+
+  &[target="_blank"]::after {
+    @include fa-icon(" \f08e");
+    font-size: 0.7em;
+    vertical-align: super;
+  }
+
+  @include hover {
+    text-decoration: underline;
+    color: $accent-light;
+  }
+
+  @include active {
+    color: $accent;
+  }
 }
 
 .page-content {
-    flex-grow: 1;
-    padding: 10px 20px 20px;
-    line-height: 1.375;
+  grid-area: main;
 
-    .wrapper {
-        max-width: 800px;
-        margin: auto;
+  width: 100svw;
+  max-width: $page-width;
+
+  padding: $page-padding $page-padding 0;
+
+  p,
+  .menu,
+  dd,
+  table,
+  hr,
+  blockquote {
+    margin-bottom: $paragraph-margin;
+  }
+
+  p a {
+    font-weight: 500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: $paragraph-margin;
+
+    color: $text-light;
+    font-family: $heading-font;
+    font-weight: 800;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.45rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+
+  h5 {
+    font-size: 1.1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+
+  abbr {
+    text-decoration: underline dotted $text-dark 1px;
+  }
+
+  .asterisk {
+    color: $accent-light;
+    font-weight: 500;
+  }
+
+  .small {
+    color: $text-dark;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+
+  .footnote {
+    &::before {
+      content: "[";
+      color: $accent-dark;
     }
 
-    p:not(:last-child),
-    li:last-child,
-    blockquote,
-    pre.highlight,
-    figure.highlight,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    .post-header .post-meta {
-        margin-bottom: 0.9rem;
+    &::after {
+      content: "]";
+      color: $accent-dark;
     }
+  }
 
-    p a[target="_blank"]::after {
-        content: " \f08e";
-        font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        font-size: 0.7em;
-        vertical-align: top;
+  .footnotes {
+    border-top: 1px solid $secondary;
+    padding-top: $paragraph-margin;
+
+    p:last-of-type {
+      margin-bottom: 0;
     }
+  }
+
+  ul, ol {
+    &:not(.menu, .post-list, .post-meta) {
+      list-style: revert;
+      margin-left: 1rem;
+    }
+  }
+
+  .post-title {
+    margin-bottom: 0.2rem;
+  }
+
+  .post-meta {
+    margin-bottom: $paragraph-margin;
 
     li {
-        margin-left: 1rem;
-
-        &::marker {
-            color: $secondary-light;
-            font-weight: 500;
-        }
+      display: inline;
+      margin-right: 0.5rem;
+      color: $text-dark;
     }
+  }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-weight: 800;
-        color: $text-light;
-    }
-
-    h1 {
-        font-size: 2.25rem;
-    }
-
-    h2 {
-        font-size: 1.75rem;
-    }
-
-    h3 {
-        font-size: 1.45rem;
-    }
-
-    h4 {
-        font-size: 1.2rem;
-    }
-
-    h5 {
-        font-size: 1.1rem;
-    }
-
-    h6 {
-        font-size: 1rem;
-    }
-
-    blockquote {
-        border-left: 4px solid $secondary;
-        padding: 0.375rem 0.75rem;
-    }
-
-    div.highlight {
-        background: transparent;
-    }
-
-    p code,
-    pre.highlight,
-    figure.highlight {
-        padding: 3px 8px;
-
-        background: $background-light;
-        border: 1px solid $secondary;
-        border-radius: 12px;
-    }
-
-    pre.highlight,
-    figure.highlight {
-        padding: 8px 12px;
-    }
-
-    pre.lineno {
-        color: $secondary-light;
-        margin-right: 12px;
-    }
-
-    .asterisk {
-        color: $accent;
-        font-weight: 500;
-    }
-
-    .small {
-        font-style: italic;
-        font-size: 0.85rem;
-        color: $text-dark;
-    }
-}
-
-.page-content a,
-.site-footer a {
-    color: $accent;
+  ::marker {
+    color: $secondary-light;
     font-weight: 500;
-    text-decoration: none;
+  }
 
-    @include hover {
-        text-decoration: underline;
-    }
-}
+  dt {
+    margin-bottom: 0.25rem;
+  }
 
-.post-meta li {
-    margin-left: 0;
-    margin-right: 8px;
-    display: inline;
-}
+  dd {
+    margin-left: 2rem;
+  }
 
-.post-meta,
-.page-modified {
-    color: $text-dark;
-}
+  hr {
+    border-top: 1px solid $secondary;
+  }
 
-.site-footer {
-    background: $background;
-    padding: 20px;
+  table {
+    border-radius: 7px;
 
-    .page-modified {
-        padding-bottom: 0;
+    thead, tfoot {
+      background: $secondary;
     }
 
-    .wrapper {
-        max-width: 800px;
-        margin: auto;
+    th {
+      font-weight: 700;
     }
+
+    th, td {
+      border: 1px solid $secondary;
+      padding: 4px 8px;
+    }
+
+    tbody tr {
+      background: $background-light;
+
+      &:nth-child(even) td {
+        background: #ffffff0f;
+      }
+    }
+  }
+
+  blockquote {
+    $border-width: 4px;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    border-radius: $border-width;
+    border-left: $border-width solid $secondary;
+    padding: 0.5rem 1rem;
+
+    > * {
+      flex-basis: 100%;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    @include alert("note", dodgerblue, "info");
+    @include alert("tip", limegreen, "lightbulb");
+    @include alert("important", mediumpurple, "feedback");
+    @include alert("warning", gold, "warning");
+    @include alert("caution", $accent, "report");
+  }
+
+  code {
+    font-family: $monospace-font;
+    font-size: 0.85em;
+  }
+
+  p code {
+    background-color: $background-light;
+    border: 1px solid $secondary;
+    padding: 4px 8px;
+    border-radius: 1em;
+  }
+
+  figure.highlight,
+  div.highlight {
+    --highlight-hll-background-color: #{color.change($accent-light, $alpha: 25%)};
+
+    margin-bottom: $paragraph-margin;
+    padding: 0.55rem 0.75rem;
+
+    border: 1px solid $secondary;
+    border-radius: 0.75rem;
+    overflow: scroll;
+  }
+
+  .highlight {
+    background-color: $background-light;
+    margin: 0;
+    padding: 0;
+
+    pre, table {
+      margin: 0;
+    }
+
+    table {
+      width: 100%;
+
+      td {
+        border: none;
+        padding: 0;
+      }
+
+      pre {
+        font-family: inherit;
+      }
+    }
+
+    .lineno {
+      color: $secondary-light;
+      padding-right: 0.7rem;
+      width: fit-content;
+    }
+
+    .hll {
+      display: block;
+      width: 100%;
+    }
+  }
 }
 
-//#region Menus (currently only used for the socials list on the homepage)
-.socials {
-    @include gradient-icon(
-        "blog",
-        radial-gradient($accent-light, $accent-dark),
-        "solid"
-    );
-    @include gradient-icon("discord", linear-gradient(#7289da, #5865f2));
-    @include gradient-icon(
-        ("x-twitter", "github"),
-        linear-gradient(#fff, #ccc)
-    );
-    @include gradient-icon(
-        "instagram",
-        linear-gradient(55.01deg, #ff7a00 12.35%, #ff0169 56.52%, #d300c5 100%)
-    );
-    @include gradient-icon("soundcloud", linear-gradient(#f70, #f30));
-    @include gradient-icon("circle-play", linear-gradient(#f00, #c00), "solid");
-    @include gradient-icon("youtube", linear-gradient(#f00, #c00));
-    @include gradient-icon("twitch", linear-gradient(#9147ff, #772ce8));
-    @include gradient-icon("cloud", linear-gradient(#34a853, #188038), "solid");
-    @include gradient-icon("bluesky", linear-gradient(#59b9ff, #0a7aff));
-}
+//#endregion
+
+//#region Menus
 
 .menu {
-    max-width: 480px;
+  .menu-header {
+    margin-bottom: 0;
+  }
 
-    .menu-header {
-        margin-bottom: 0;
-    }
-
-    li {
-        list-style: none;
-        margin-left: 0;
-    }
-
-    a {
-        display: grid;
-        grid-template-areas:
+  a {
+    display: grid;
+    grid-template-areas:
             "icon title"
             "icon description";
-        grid-template-columns: 60px auto;
-        gap: 0.2rem;
-        align-items: center;
-        color: $text;
-        padding: 10px;
-        transition: background-color 0.2s ease;
+    align-items: center;
+    gap: 0.15rem;
 
-        @include hover {
-            text-decoration: none;
-            background: $transparent-button-hover;
-        }
-    }
+    padding: 10px;
 
-    .menu-item-icon {
-        grid-area: icon;
-        font-size: 2rem;
-        text-align: center;
-        margin-right: 6px;
-    }
+    @include transparent-button;
+  }
 
-    .menu-item-title {
-        grid-area: title;
-        font-weight: 700;
-        font-size: 1.15rem;
-        margin: 0;
-    }
+  .menu-item-icon {
+    grid-area: icon;
 
-    .menu-item-description {
-        grid-area: description;
-        font-weight: 400;
-        font-size: 0.85rem;
-        color: $text-dark;
-        margin: 0;
-    }
+    margin-right: 0.4rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .menu-item-title {
+    grid-area: title;
+    display: flex;
+    align-items: center;
+
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.15rem;
+  }
+
+  .menu-item-description {
+    grid-area: description;
+
+    margin: 0;
+    font-size: 0.85rem;
+    color: $text-dark;
+  }
 }
+
+$tag-height: 1.6rem;
+
+.socials .menu {
+  a {
+    grid-template-columns: 60px auto;
+  }
+
+  .tag {
+    margin-left: 0.5rem;
+  }
+
+  .menu-item-title {
+    height: $tag-height;
+  }
+
+  @include gradient-icon(
+                  radial-gradient($accent-light, $accent-dark),
+                  ".fa-solid.fa-blog"
+  );
+  @include gradient-icon(
+                  linear-gradient(#7289da, #5865f2),
+                  ".fa-brands.fa-discord"
+  );
+  @include gradient-icon(
+                  linear-gradient(#fff, #ccc),
+                  ".fa-brands.fa-x-twitter",
+                  ".fa-brands.fa-github"
+  );
+  @include gradient-icon(
+                  linear-gradient(55.01deg, #ff7a00 12.35%, #ff0169 56.52%, #d300c5 100%),
+                  ".fa-brands.fa-instagram"
+  );
+  @include gradient-icon(
+                  linear-gradient(#f70, #f30),
+                  ".fa-brands.fa-soundcloud"
+  );
+  @include gradient-icon(
+                  linear-gradient(#f00, #c00),
+                  ".fa-brands.fa-youtube",
+                  ".fa-solid.fa-circle-play"
+  );
+  @include gradient-icon(
+                  linear-gradient(#9147ff, #772ce8),
+                  ".fa-brands.fa-twitch"
+  );
+  @include gradient-icon(
+                  linear-gradient(#34a853, #188038),
+                  ".fa-solid.fa-cloud"
+  );
+  @include gradient-icon(
+                  linear-gradient(#59b9ff, #0a7aff),
+                  ".fa-brands.fa-bluesky"
+  );
+}
+
+//#endregion
+
+//#region Tags
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  height: $tag-height;
+  padding: 0 0.7rem 0 0.55rem;
+  margin: 0 0.2rem;
+  border-radius: math.div($tag-height, 2);
+  z-index: 1;
+  vertical-align: middle;
+
+  font-family: $heading-font;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: $text-light;
+  text-shadow: 0 1px 5px color.change($background, $alpha: 50%);
+
+  .material-symbols-rounded {
+    font-size: 20px;
+    padding: 0;
+  }
+}
+
+.tag-new {
+  background: linear-gradient($accent, $accent-dark);
+}
+
+.tag-inactive {
+  background: linear-gradient(goldenrod, darkgoldenrod);
+}
+
+.tag-archived {
+  background: linear-gradient($secondary-light, $secondary);
+}
+
+.tag-beta {
+  background: linear-gradient(purple, indigo);
+}
+
+//#endregion
+
+//#region Footer
+
+.site-footer {
+  grid-area: footer;
+
+  width: 100%;
+  max-width: $page-width;
+  padding: $page-padding;
+
+  color: $text-dark;
+}
+
+//#endregion
+
+//#region Animated outline for focused elements
+// Based on https://www.bram.us/2021/01/29/animating-a-css-gradient-border/
+
+:focus-visible {
+  position: relative;
+
+  &::before {
+    --gradient-angle: 0deg;
+
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: -3px;
+    width: calc(100% + 8px);
+    height: calc(100% + 6px);
+
+    outline: 2px solid $background;
+    border: 2px solid $accent; // Fallback for older browser versions that don't support this
+    border-image: linear-gradient(var(--gradient-angle), $accent-dark, $accent-light) 1;
+
+    @include animate(3s linear 0s infinite) {
+      to {
+        --gradient-angle: 360deg;
+      }
+    }
+  }
+}
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 //#endregion

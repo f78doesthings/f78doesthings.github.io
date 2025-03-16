@@ -1,48 +1,19 @@
 ---
 ---
 
-// This file contains styles for the blog homepage.
+// This file contains styles for post lists.
 
-@import "globals";
+@use "globals" as *;
 
 .post-list {
-    list-style: none;
+  list-style: none;
+  margin: 0;
 
-    > li {
-        margin-left: 0;
-        display: flex;
-        flex-direction: column;
+  .draft {
+    opacity: 0.75;
+  }
 
-        &:not(:last-child) {
-            margin-bottom: 1rem;
-        }
-    }
-
-    .post-link {
-        font-weight: 800;
-    }
-
-    .post-meta {
-        padding-bottom: 0.5rem;
-    }
-
-    .draft {
-        opacity: 0.75;
-    }
-}
-
-.post-list h3,
-.post-header h1 {
-    margin-bottom: 0;
-}
-
-.post-excerpt {
+  .post-excerpt {
     font-size: 0.85rem;
-
-    p code {
-        font-size: 1em;
-        padding: 0;
-        background: transparent;
-        border: none;
-    }
+  }
 }

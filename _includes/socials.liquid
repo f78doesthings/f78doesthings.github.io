@@ -1,0 +1,37 @@
+<nav class="socials">
+    <ul class="menu">
+        {%- for social in site.pages -%}
+            {%- if social.social_title or social.redirect_to -%}
+                {%- assign tag = site.data.tags[social.social_tag] -%}
+                {%- unless include.inactive == true and tag.social_inactive != true -%}
+                    {%- unless include.inactive == false and tag.social_inactive == true -%}
+                        <li>
+                            <a class="page-link"
+                               href="{{ social.url | relative_url }}"
+                                    {% if social.redirect_to %}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    {% endif %}
+                            >
+                                {% if social.icon %}
+                                    <i class="menu-item-icon {{ social.icon | escape }}"></i>
+                                {%- endif -%}
+
+                                <h3 class="menu-item-title">
+                                    {{ social.social_title | default: social.title | escape }}
+                                    {% include tag.liquid tag=social.social_tag %}
+                                </h3>
+
+                                {%- if social.description -%}
+                                    <p class="menu-item-description">
+                                        {{ social.description | escape }}
+                                    </p>
+                                {%- endif -%}
+                            </a>
+                        </li>
+                    {%- endunless -%}
+                {%- endunless -%}
+            {%- endif -%}
+        {%- endfor -%}
+    </ul>
+</nav>

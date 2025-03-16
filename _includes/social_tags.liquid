@@ -1,0 +1,13 @@
+<dl>
+    {%- for pair in site.data.tags -%}
+        {%- if pair[1].social_description -%}
+            <dt>
+                {%- assign key = pair[0] -%}
+                {%- include tag.liquid tag=key -%}
+            </dt>
+            <dd>
+                {{ pair[1].social_description }}
+            </dd>
+        {%- endif -%}
+    {%- endfor -%}
+</dl>

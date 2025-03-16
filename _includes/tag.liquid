@@ -1,0 +1,14 @@
+{% comment %}
+    Includes a tag from _data/tags.yml
+    
+    Usage:
+    {% include tag.html tag=... %}
+{% endcomment %}
+
+{%- assign tag = site.data.tags[include.tag] -%}
+{%- if tag -%}
+    <span class="tag tag-{{ tag.name }}" title="{{ tag.social_description | default: tag.description }}">
+        <span class="material-symbols-rounded">{{ tag.icon }}</span>
+        {{ tag.display_name }}
+    </span>
+{%- endif -%}

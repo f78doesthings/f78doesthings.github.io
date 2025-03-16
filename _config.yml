@@ -19,21 +19,29 @@
 # in the templates via {{ site.myvariable }}.
 
 title: f78
-#email:
+#email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-    Hi! I'm f78, a 21-year-old guy from Belgium who is currently studying programming at college.
+  Hi! I'm f78, a 21-year-old guy from Belgium who is currently studying programming at college.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://www.f78.be" # the base hostname & protocol for your site, e.g. http://example.com
-lang: en-GB
+#twitter_username: jekyllrb
+#github_username:  jekyll
+
+date_format: "%e %B %Y"
+show_excerpts: true
 
 # Build settings
 #theme: minima
-date_format: "%e %B %Y"
+markdown_ext: markdown,mkdown,mkdn,mkd,md,md.liquid
 
-show_excerpts: true
 plugins:
-    - jekyll-feed
-    - jekyll-redirect-from
+  - jekyll-feed
+  - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-github-metadata
+
+sass:
+  style: compressed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -44,12 +52,17 @@ plugins:
 # their entries' file path in the `include:` list.
 #
 exclude:
-    - "*.bat"
-    - "*.sh"
-    - "*.disabled"
-    - .idea/
-    - .vscode/
-    - .env
+  - .idea/
+  - .vscode/
+  - "**.bat"
+  - "**.ps1"
+  - "**.sh"
+  - "**.disabled"
+  - .env
+  - .gitignore
+  - "**/README.md"
+  - README.md
+  - CNAME
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

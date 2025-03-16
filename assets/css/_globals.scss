@@ -1,0 +1,161 @@
+// This file contains variables and mixins to share between all SCSS files.
+
+@use "sass:string";
+
+//#region Colour palette
+
+$background-dark: hsl(230, 6%, 3%);
+$background: hsl(230, 6%, 8%);
+$background-light: hsl(230, 6%, 13%);
+$secondary: hsl(230, 5%, 30%);
+$secondary-light: hsl(230, 5%, 50%);
+$text-dark: hsl(25, 3%, 70%);
+$text: hsl(25, 18%, 94%);
+$text-light: hsl(25, 100%, 99%);
+$accent-dark: hsl(359, 83%, 44%);
+$accent: hsl(359, 88%, 52%);
+$accent-light: hsl(359, 100%, 60%);
+
+//#endregion
+
+//#region Variables
+
+$page-width: 1024px;
+$page-padding: 20px;
+$paragraph-margin: 0.8rem;
+$paragraph-font: Hind, sans-serif;
+$heading-font: Montserrat, sans-serif;
+$monospace-font: "Cascadia Code", monospace;
+
+//#endregion
+
+//#region Mixins
+
+@mixin gradient-icon($classes, $image, $type: "solid") {
+  @each $class in $classes {
+    .fa-#{$type}.fa-#{$class}::before {
+      color: transparent;
+      background-clip: text;
+      background-image: $image;
+    }
+  }
+}
+
+@mixin gradient-icon($image, $selectors...) {
+  @each $selector in $selectors {
+    #{$selector}::before {
+      color: transparent;
+      background-clip: text;
+      background-image: $image;
+    }
+  }
+}
+
+@mixin hover {
+  &:focus-visible {
+    @content;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      @content;
+    }
+  }
+}
+
+@mixin active {
+  @media (hover: hover) {
+    &:active {
+      @content;
+    }
+  }
+}
+
+@mixin transparent-button {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+                    hsla(0, 0%, 100%, 0.09),
+                    hsla(0, 0%, 100%, 0.06)
+    );
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  @include hover {
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  @include active {
+    &::after {
+      opacity: 0.6;
+    }
+  }
+}
+
+@mixin alert($name, $color, $icon: null) {
+  &.alert-#{$name} {
+    border-left-color: $color;
+
+    &::before {
+      color: $color;
+      font-weight: 600;
+      content: $name;
+      text-transform: capitalize;
+      margin-bottom: 0.35rem;
+      line-height: 1;
+    }
+
+    @if ($icon) {
+      &::after {
+        @include material-icon($icon);
+        margin-right: 0.3rem;
+        margin-bottom: 0.5rem;
+        color: $color;
+        order: -1;
+      }
+    }
+  }
+}
+
+@mixin material-icon($icon) {
+  content: $icon;
+  font-family: "Material Symbols Rounded", sans-serif;
+  font-size: 24px;
+  line-height: 1;
+}
+
+@mixin fa-icon($icon, $weight: 900) {
+  content: $icon;
+  font-family: "Font Awesome 6 Free", sans-serif;
+  font-weight: $weight;
+  line-height: 1;
+}
+
+@mixin animate($properties) {
+  $name: inline-#{string.unique-id()};
+
+  animation: $name $properties;
+
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+//#endregion

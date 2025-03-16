@@ -4,8 +4,3 @@ _site
 .jekyll-metadata
 vendor
 Gemfile.lock
-*.disabled
-_drafts
-.idea
-.vscode
-.env

@@ -1,0 +1,62 @@
+---
+layout: default
+---
+
+{% comment %}
+    The base page layout.
+{% endcomment %}
+
+<header class="site-header">
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
+        <img class="site-logo" src="{{ "/assets/img/logo.png" | relative_url }}" alt="f78's avatar">
+        <h1>{{ site.title | escape }}</h1>
+    </a>
+
+    <nav class="site-nav">
+        {%- for my_page in site.pages -%}
+            {%- if my_page.header_title -%}
+                <a class="page-link" href="{{ my_page.url | relative_url }}">
+                    {%- if my_page.icon -%}
+                        <i class="{{ my_page.icon | escape }}">&nbsp;</i>
+                    {%- endif -%}
+                    {{ my_page.header_title | escape }}
+                </a>
+            {%- endif -%}
+        {%- endfor -%}
+    </nav>
+</header>
+
+<main class="page-content">
+    {{ content }}
+</main>
+
+<footer class="site-footer">
+    {%- if layout.show_subscribe -%}
+        <p class="feed-subscribe">
+            <a href="{{ site.feed.path | default: "feed.xml" | absolute_url }}">
+                <span class="material-symbols-rounded">rss_feed</span>
+                Subscribe to f78's blog
+            </a>
+        </p>
+    {%- endif -%}
+    {%- if page.date_modified or page.date -%}
+        <p class="page-modified">
+            <span class="material-symbols-rounded">edit_calendar</span>
+            Last updated:
+            <time datetime="{{ page.date_modified | default: page.date | date_to_xmlschema }}" itemprop="dateModified">
+                {{ page.date_modified | default: page.date | date: site.date_format }}
+            </time>
+        </p>
+    {%- endif -%}
+
+    <!-- Is there a better way to do this? -->
+    <a href="{{ site.github.repository_url }}/blob/{{ site.github.source.branch }}/{{ page.path }}?plain=1"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="view-source">
+
+        <span class="material-symbols-rounded">code</span>
+        View source code on GitHub
+        {% include tag.liquid tag="beta" %}
+    </a>
+</footer>

@@ -1,0 +1,28 @@
+---
+layout: page
+show_subscribe: true
+---
+{% comment %} The layout for blog posts. {% endcomment %}
+
+<header class="post-header">
+    <p><a href="{{ "blog.html" | relative_url }}" class="go-back">&lt; Back to f78's blog</a></p>
+    <h1 class="post-title" itemprop="name headline">{{ page.title | escape }}</h1>
+    <ul class="post-meta">
+        {%- if page.path contains "_drafts" -%}
+            <li>
+                <span class="material-symbols-rounded">design_services</span>
+                Draft
+            </li>
+        {%- endif -%}
+        <li>
+            <span class="material-symbols-rounded">calendar_today</span>
+            <time class="post-date"
+                  datetime="{{ page.date | date_to_xmlschema }}"
+                  itemprop="datePublished">
+                {{ page.date | date: site.date_format }}
+            </time>
+        </li>
+    </ul>
+</header>
+
+{{ content }}

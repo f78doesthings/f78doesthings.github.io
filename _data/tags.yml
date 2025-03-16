@@ -1,0 +1,36 @@
+# This file contains custom tags for use with _includes/tag.liquid.
+new:
+  # The class name of the tag.
+  name: new
+
+  # The text to display in the tag.
+  display_name: NEW
+
+  # The icon class of the tag.
+  icon: stars_2
+
+  # Whether socials with this tag are considered inactive.
+  social_inactive: false
+
+  # The description to display in the legend section of the socials.
+  social_description: This account has been created recently. You likely won't find much here.
+
+inactive:
+  name: inactive
+  icon: hourglass_empty
+  display_name: INACTIVE
+  social_inactive: true
+  social_description: I have no plans to use this account for the time being. It may be used again in the future.
+
+archived:
+  name: archived
+  icon: inventory_2
+  display_name: ARCHIVED
+  social_inactive: true
+  social_description: I will no longer use this account. The description may contain more information.
+
+beta:
+  name: beta
+  icon: science
+  display_name: BETA
+  description: This feature is experimental and may not work properly. Please report any issues you find on GitHub.

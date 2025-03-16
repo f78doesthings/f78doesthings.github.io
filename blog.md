@@ -3,6 +3,7 @@ layout: posts
 icon: fa-solid fa-blog
 title: f78's blog
 list_title: Posts
+header_title: Blog
 social_title: Blog
 description: There is nothing to see here right now. Perhaps I'll make use of this in the future...
 ---
