@@ -109,12 +109,14 @@ body {
 
 //#region Main
 
+// Icons
 .material-symbols-rounded {
   line-height: 1;
   vertical-align: middle;
   padding-bottom: 2px;
 }
 
+// General styles
 b,
 strong {
   font-weight: 700;
@@ -125,8 +127,12 @@ em {
   font-style: italic;
 }
 
-u {
+u, ins {
   text-decoration: underline;
+}
+
+s, del {
+  text-decoration: line-through;
 }
 
 sup {
@@ -139,6 +145,7 @@ sub {
   font-size: 0.85em;
 }
 
+// Links
 .page-content p a,
 .site-footer a,
 .post-link,
@@ -162,6 +169,7 @@ sub {
   }
 }
 
+// Main content
 .page-content {
   grid-area: main;
 
@@ -183,6 +191,7 @@ sub {
     font-weight: 500;
   }
 
+  // Headings
   h1,
   h2,
   h3,
@@ -220,6 +229,7 @@ sub {
     font-size: 1rem;
   }
 
+  // Miscellaneous
   abbr {
     text-decoration: underline dotted $text-dark 1px;
   }
@@ -229,21 +239,29 @@ sub {
     font-weight: 500;
   }
 
-  .small {
+  small, p.small {
     color: $text-dark;
     font-size: 0.85rem;
     font-style: italic;
   }
 
+  hr {
+    border-top: 1px solid $secondary;
+  }
+
+  // Footnotes
   .footnote {
+    &::before, &::after {
+      color: $accent-dark;
+      font-weight: 400;
+    }
+
     &::before {
       content: "[";
-      color: $accent-dark;
     }
 
     &::after {
       content: "]";
-      color: $accent-dark;
     }
   }
 
@@ -256,24 +274,17 @@ sub {
     }
   }
 
+  // Lists
   ul, ol {
+    margin-bottom: $paragraph-margin;
+
+    ul, ol {
+      margin-bottom: 0;
+    }
+
     &:not(.menu, .post-list, .post-meta) {
       list-style: revert;
       margin-left: 1rem;
-    }
-  }
-
-  .post-title {
-    margin-bottom: 0.2rem;
-  }
-
-  .post-meta {
-    margin-bottom: $paragraph-margin;
-
-    li {
-      display: inline;
-      margin-right: 0.5rem;
-      color: $text-dark;
     }
   }
 
@@ -290,10 +301,22 @@ sub {
     margin-left: 2rem;
   }
 
-  hr {
-    border-top: 1px solid $secondary;
+  // Posts
+  .post-title {
+    margin-bottom: 0.2rem;
   }
 
+  .post-meta {
+    margin-bottom: $paragraph-margin;
+
+    li {
+      display: inline;
+      margin-right: 0.5rem;
+      color: $text-dark;
+    }
+  }
+
+  // Tables
   table {
     border-radius: 7px;
 
@@ -319,6 +342,7 @@ sub {
     }
   }
 
+  // Quotes and alerts
   blockquote {
     $border-width: 4px;
 
@@ -345,6 +369,7 @@ sub {
     @include alert("caution", $accent, "report");
   }
 
+  // Inline code & code blocks
   code {
     font-family: $monospace-font;
     font-size: 0.85em;
@@ -352,8 +377,9 @@ sub {
 
   p code {
     background-color: $background-light;
+    box-shadow: 0 0 0.5em $background inset;
     border: 1px solid $secondary;
-    padding: 4px 8px;
+    padding: 0.3em 0.7em;
     border-radius: 1em;
   }
 
@@ -367,6 +393,10 @@ sub {
     border: 1px solid $secondary;
     border-radius: 0.75rem;
     overflow: scroll;
+    max-height: 50vh;
+
+    // TODO: put shadow on top of text
+    box-shadow: 0 0 0.55rem $background inset;
   }
 
   .highlight {
@@ -378,8 +408,10 @@ sub {
       margin: 0;
     }
 
+    // TODO: make line numbers sticky
     table {
       width: 100%;
+      max-width: 100%;
 
       td {
         border: none;

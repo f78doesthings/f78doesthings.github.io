@@ -44,4 +44,4 @@ some way. Check the licence for more information.
 
 **Tip:** If you want to download my music for offline listening or including it in your content, you can find
 high-quality (320kbps) MP3
-files [here](https://drive.google.com/drive/folders/1sAmqC1Xjgu3Jn6XMvfPQ5cBcg8FnF-j2?usp=drive_link){:external}.
+files [in this Google Drive folder](https://drive.google.com/drive/folders/1sAmqC1Xjgu3Jn6XMvfPQ5cBcg8FnF-j2?usp=drive_link){:external}.
